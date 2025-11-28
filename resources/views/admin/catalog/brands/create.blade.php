@@ -1,0 +1,113 @@
+@extends('layouts.admin')
+
+@section('title', 'Add New Brand')
+
+@section('content')
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">Add New Brand</h1>
+  <a href="{{ route('admin.catalog.brands.index') }}" class="btn btn-outline-secondary">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="me-1">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </svg>
+    Back to Brands
+  </a>
+</div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Brand Information</h5>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{{ route('admin.catalog.brands.store') }}" enctype="multipart/form-data">
+          @csrf
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="name" class="form-label">Brand Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+                @error('name')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="website" class="form-label">Website</label>
+                <input type="url" class="form-control @error('website') is-invalid @enderror" id="website" name="website" value="{{ old('website') }}" placeholder="https://example.com">
+                @error('website')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4" placeholder="Enter brand description...">{{ old('description') }}</textarea>
+            @error('description')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="logo" class="form-label">Brand Logo</label>
+                <input type="file" class="form-control @error('logo') is-invalid @enderror" id="logo" name="logo" accept="image/*">
+                <div class="form-text">Upload a logo image (JPG, PNG, GIF, SVG). Max size: 2MB.</div>
+                @error('logo')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="is_active" class="form-label">Status</label>
+                <select class="form-select @error('is_active') is-invalid @enderror" id="is_active" name="is_active">
+                  <option value="1" {{ old('is_active', '1') == '1' ? 'selected' : '' }}>Active</option>
+                  <option value="0" {{ old('is_active') == '0' ? 'selected' : '' }}>Inactive</option>
+                </select>
+                @error('is_active')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="me-1">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+              Create Brand
+            </button>
+            <a href="{{ route('admin.catalog.brands.index') }}" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Tips</h5>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info">
+          <h6 class="alert-heading">Brand Guidelines</h6>
+          <ul class="mb-0 small">
+            <li>Use clear, descriptive brand names</li>
+            <li>Upload high-quality logos (PNG with transparent background recommended)</li>
+            <li>Include website URL for brand verification</li>
+            <li>Write detailed descriptions for better SEO</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection

@@ -1,0 +1,19 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-inference: true
+    strict-raw-types: true
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    directives_ordering: true
+    always_use_package_imports: true
+    avoid_redundant_argument_values: true
+    sort_pub_dependencies: true
+
